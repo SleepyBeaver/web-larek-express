@@ -18,14 +18,12 @@
     "@types/express-winston": "^3.0.4",
     "@types/mongoose": "^5.11.96",
     "@types/node": "^20.12.7",
-    "@types/validator": "^13.11.9",
     "@typescript-eslint/eslint-plugin": "^7.7.1",
     "@typescript-eslint/parser": "^7.7.1",
     "eslint": "^8.56.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-plugin-import": "^2.29.1",
     "ts-node": "^10.9.2",
-    "ts-node-dev": "^2.0.0",
     "typescript": "^5.4.5"
   },
   "dependencies": {
@@ -35,9 +33,7 @@
     "dotenv": "^17.2.0",
     "express": "^4.21.2",
     "express-winston": "^4.2.0",
-    "joi": "^17.13.3",
     "mongoose": "^8.16.4",
-    "validator": "^13.11.0",
     "winston": "^3.17.0"
   }
 }

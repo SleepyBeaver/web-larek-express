@@ -3,14 +3,16 @@ import { faker } from '@faker-js/faker';
 import Product from '../models/product';
 import BadRequestError from '../errors/badRequestError';
 
-export const createOrder = async (req: Request, res: Response, next: NextFunction) => {
-  const { items, total, payment, email, phone, address } = req.body;
+const createOrder = async (req: Request, res: Response, next: NextFunction) => {
+  const {
+    items, total, payment, email, phone, address,
+  } = req.body;
 
   try {
     if (!Array.isArray(items) || items.length === 0) {
       throw new BadRequestError('Поле items должно быть непустым массивом');
     }
-    
+
     if (!['card', 'online'].includes(payment)) {
       throw new BadRequestError('Недопустимое значение payment');
     }
@@ -33,7 +35,7 @@ export const createOrder = async (req: Request, res: Response, next: NextFunctio
       throw new BadRequestError('Один или несколько товаров не найдены');
     }
 
-    const unavailable = products.find(p => p.price === null);
+    const unavailable = products.find((p) => p.price === null);
     if (unavailable) {
       throw new BadRequestError(`Товар "${unavailable.title}" не продаётся (price = null)`);
     }
@@ -48,10 +50,11 @@ export const createOrder = async (req: Request, res: Response, next: NextFunctio
 
     return res.status(201).json({
       id: orderId,
-      total: calculatedTotal
+      total: calculatedTotal,
     });
-
   } catch (err) {
-    next(err);
+    return next(err); // добавляем return
   }
 };
+
+export default createOrder; // используем default экспорт

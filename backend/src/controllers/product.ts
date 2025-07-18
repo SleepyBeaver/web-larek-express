@@ -1,25 +1,25 @@
 import { Request, Response, NextFunction } from 'express';
+import { Error as MongooseError } from 'mongoose';
 import Product from '../models/product';
 import BadRequestError from '../errors/badRequestError';
 import ConflictError from '../errors/conflictError';
-import { Error as MongooseError } from 'mongoose';
 
-export const getProducts = async (req: Request, res: Response, next: NextFunction) => {
+export const getProducts = async (_req: Request, res: Response, next: NextFunction) => {
   try {
     const products = await Product.find();
-    res.json({
+    return res.json({ // добавляем return
       items: products,
       total: products.length,
     });
   } catch (err) {
-    next(err);
+    return next(err); // добавляем return
   }
 };
 
 export const createProduct = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const product = await Product.create(req.body);
-    res.status(201).json(product);
+    return res.status(201).json(product); // добавляем return
   } catch (err: any) {
     if (err instanceof MongooseError.ValidationError) {
       return next(new BadRequestError('Ошибка валидации данных при создании товара'));
@@ -29,6 +29,6 @@ export const createProduct = async (req: Request, res: Response, next: NextFunct
       return next(new ConflictError('Товар с таким названием уже существует'));
     }
 
-    next(err);
+    return next(err); // добавляем return
   }
 };

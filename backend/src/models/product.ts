@@ -33,7 +33,7 @@ const productSchema = new Schema<IProduct>({
   price: {
     type: Number,
     default: null,
-  }
+  },
 });
 
 export default mongoose.model<IProduct>('product', productSchema);
